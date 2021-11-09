@@ -95,6 +95,7 @@ function seccionTres (){
     let cantidadOperacionesDiarias = parseFloat(document.getElementById ("operacionesDiariasInput").value);
     sessionStorage.setItem("cantidadOperacionesDiarias", cantidadOperacionesDiarias);
     console.log (capitalInicio,cantidadOperacionesDiarias)
+  
     /* Fórmulas y cálculos  */
 
   /* Cálculo de indice de riesgo para traders */
@@ -106,7 +107,10 @@ function seccionTres (){
   };
 
   /* Cálculo de pérdida diaria */
-  let perdidaDiariaMaxima = parseFloat ((capInicial * 5)/100);
+  let calculoPerdidaDiariaMaxima = (a,b) => {
+    return parseFloat ((a*b)/100);
+  };
+  let perdidaDiariaMaxima= calculoPerdidaDiariaMaxima(capInicial,5);
   sessionStorage.setItem("perdidaDiariaMaxima", perdidaDiariaMaxima);
   console.log ("El monto máximo a operar diariamente es de " +"$"+ perdidaDiariaMaxima +".");
 
@@ -115,10 +119,14 @@ function seccionTres (){
   console.log (operacionesDiarias);
 
   /* Cálculo del riesgo del capital diario */
-  let riesgoCapitalDiario = parseFloat (perdidaDiariaMaxima/operacionesDiarias);
+  let calculoRiesgoCapitalDiario = (a,b) => {
+    return parseFloat ((a/b));
+  };
+  let riesgoCapitalDiario = calculoRiesgoCapitalDiario (perdidaDiariaMaxima,operacionesDiarias);
   sessionStorage.setItem("riesgoCapitalDiario",riesgoCapitalDiario);
   console.log ("El capital a utilizar en cada operación no puede superar los " +"$"+ riesgoCapitalDiario + " diarios.")
   }
+  
   
   function respuestaTres(){
     let nombre= sessionStorage.getItem("nombreUsuarix");
@@ -138,7 +146,7 @@ function seccionTres (){
       <li>El monto máximo a operar diariamente es de $${perdidaDiariaMaxima}</li>
       <li>El capital a utilizar en cada operación no puede superar los $${riesgoCapitalDiario} diarios.</li>
       <div>
-      <h4>Gracias por usar Trisk. ¡Buen Trading!</h4>
+      <h4>Gracias por usar Trisk. ¡Buen trading!</h4>
       </div>
       </div>`);
 
@@ -160,5 +168,3 @@ function seccionTres (){
       showHidden3})
       transicion3;
   };
-
-
